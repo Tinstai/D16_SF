@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Detail
+{% endblock title %}
+
+{% block content %}
+
+    <h1>{{ detail.header }}</h1>
+    <img src="{{ data.image.url }}" width="500"><br>
+    {{ detail.text | safe }} <br>
+    Category {{ detail.category }} <br>
+    Author {{ detail.author }}
+
+    <hr>
+
+    <p>Comments ({{ detail.feedback_post.all.count }})</p>
+
+    <hr>
+
+    {% for item in detail.feedback_post.all %}
+        <li>
+            Date {{ item.datetime }} <br>
+            Author {{ item.feedback_user }} <br>
+            {{ item.text }} <br>
+            <hr>
+        </li>
+    {% endfor %}
+
+    <p>Add comment</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save"/>
+    </form>
+
+    <hr>
+
+    {% include 'buttons/simple_button.html' %}
+
+{% endblock content %}

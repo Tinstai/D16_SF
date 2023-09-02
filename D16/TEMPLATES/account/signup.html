@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+
+{% block title %}
+    Signup
+{% endblock title %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Sing up">
+    </form>
+    <hr>
+    <a href="{% url 'account_login' %}">You have an account?</a>
+
+    <hr>
+    {% include 'buttons/simple_button.html' %}
+{% endblock content %}

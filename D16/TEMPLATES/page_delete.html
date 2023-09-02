@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Delete post ?
+{% endblock title %}
+
+{% block content %}
+    <hr>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>Delete "{{ object.header }}" ?</p>
+        <input type="submit" value="Delete"/>
+    </form>
+
+    <hr>
+
+    {% include 'buttons/simple_button.html' %}
+
+{% endblock content %}

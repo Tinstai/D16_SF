@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% load paginator_tag %}
+
+{% block title %}
+    Posts
+{% endblock title %}
+
+{% block content %}
+
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" value="Find"/>
+    </form>
+
+    <hr>
+
+    <form action="{% url 'board' %}">
+        <input type="submit" value="Reload"/>
+    </form>
+
+    <hr>
+
+    {% for data in list %}
+        <h1>{{ data.header }}</h1>
+        <img src="{{ data.image.url }}" width="500">
+        {{ data.text | safe }}
+        {{ data.category }}
+        {{ data.datetime }}
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'detail' pk=data.pk %}">Add comment</a>
+        {% endif %}
+
+        <hr>
+    {% endfor %}
+
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}"> first</a>
+        <a href="?{% url_replace page=page_obj.previous_page_number %}"> previous</a>
+    {% endif %}
+
+    <span class="current">
+        page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{% url_replace page=page_obj.next_page_number %}"> next</a>
+        <a href="?{% url_replace page=page_obj.paginator.num_pages %}"> last</a>
+    {% endif %}
+
+{% endblock content %}

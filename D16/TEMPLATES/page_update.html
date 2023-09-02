@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Update post
+{% endblock title %}
+
+{% block content %}
+
+    <h1>Update post</h1>
+
+    <hr>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input type="submit" value="Save"/>
+    </form>
+
+    <hr>
+
+    {% include 'buttons/simple_button.html' %}
+
+{% endblock content %}

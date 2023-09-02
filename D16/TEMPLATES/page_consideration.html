@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+
+{% load paginator_tag %}
+
+{% block title %}
+    Feedbacks consideration
+{% endblock title %}
+
+{% block content %}
+
+    <hr>
+
+    <form action="{% url 'consideration' %}" method="get">
+        {{ form.as_p }}
+        <input type="submit" value="Find"/>
+    </form>
+
+    <hr>
+
+    <a href="{% url 'consideration' %}">Reload</a>
+
+    <hr>
+    {% if objects %}
+        {% for object in objects  %}
+            <p>
+                <h4>User {{ object.feedback_user }}, leave feedback in {{ object.feedback_post.header }} post</h4>
+                <h5>{{ object.text }}</h5>
+                <h6>{{ object.datetime }}</h6>
+                <a href="mailto:{{ object.feedback_user.email }}">Send mail to {{ object.feedback_user.email }}</a>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="feedback_id" value="{{ object.id }}" />
+
+                    {% if object.user_subscribed %}
+                        <button name="action" value="unsubscribe">Not to accept</button>
+                        <button disabled>Accepted</button>
+                    {% else %}
+                        <button name="action" value="subscribe">Accepted</button>
+                        <button disabled>Not to accept</button>
+                    {% endif %}
+                </form>
+                <hr>
+            <p>
+        {% endfor %}
+    {% else %}
+        <h1>You don't have any reviews yet ✍️(◔◡◔)</h1>
+    {% endif %}
+
+    {% include 'buttons/simple_button.html' %}
+
+    <hr>
+
+    {% if objects.has_previous %}
+        <a href="?{% url_replace page=1 %}"> first</a>
+        <a href="?{% url_replace page=objects.previous_page_number %}"> previous</a>
+    {% endif %}
+
+    <span class="current">
+        page {{ objects.number }} of {{ objects.paginator.num_pages }}.
+    </span>
+
+    {% if objects.has_next %}
+        <a href="?{% url_replace page=objects.next_page_number %}"> next</a>
+        <a href="?{% url_replace page=objects.paginator.num_pages %}"> last</a>
+    {% endif %}
+
+{% endblock content %}

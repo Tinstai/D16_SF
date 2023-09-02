@@ -1,0 +1,33 @@
+This accounts is for testing only
+
+-----------------------------------------------------------------------
+
+Have some data from testing ↓
+
+adress: testeertesting03@gmail.com
+password: i76rc3bi74r6tcb3i4
+
+site login:
+site password: mnbvcxz12345
+
+-----------------------------------------------------------------------
+
+Have some data from testing ↓
+
+adress: Qwertryqwert@gmail.com
+password: i8q347trcnh84t57
+
+site login: Qwertryqwert@gmail.com
+site password: lkjhgfdsa12345
+
+-----------------------------------------------------------------------
+
+Empty ↓
+
+adress: hulekalumgink@gmail.com
+password: 8o57otg43f67cr457
+
+site login: hulekalumgink@gmail.com
+site password: lkjhgfdsa12345
+
+-----------------------------------------------------------------------

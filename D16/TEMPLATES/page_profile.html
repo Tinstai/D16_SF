@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+
+{% load paginator_tag %}
+
+{% block title %}
+    Profile
+{% endblock title %}
+
+{% block content %}
+
+    <hr>
+        {% for data in user_data %}
+            Username: {{ data.username }} <br>
+            Email: {{ data.email }} <br>
+            Date joined: {{ data.date_joined }} <br>
+        {% endfor %}
+    <hr>
+
+    {% if profile %}
+        {% for data in profile %}
+            <h1>{{ data.header }}</h1>
+            {{ data.datetime }}
+
+            {% if perms.bulletin_board.change_post %}
+                <a href="{% url 'update' pk=data.id %}">Update</a>
+            {% endif %}
+            or
+            {% if perms.bulletin_board.delete_post %}
+                <a href="{% url 'delete' data.id %}">Delete ?</a>
+            {% endif %}
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h1>You don't have any post yet ✍️(◔◡◔)</h1>
+    {% endif %}
+
+    {% include 'buttons/simple_button.html' %}
+
+    <hr>
+
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}"> first</a>
+        <a href="?{% url_replace page=page_obj.previous_page_number %}"> previous</a>
+    {% endif %}
+
+    <span class="current">
+        page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+        <a href="?{% url_replace page=page_obj.next_page_number %}"> next</a>
+        <a href="?{% url_replace page=page_obj.paginator.num_pages %}"> last</a>
+    {% endif %}
+
+{% endblock content %}
